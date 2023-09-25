@@ -1,0 +1,294 @@
+#:kivy 2.0.0
+WinMan:
+    Login:
+    CreateAcc:
+    Com:
+    Home:
+    Ahome:
+    Update:
+<Login>:
+    name: "log"
+    user: user
+    passw: passw1
+    Screen:
+        MDCard:
+            size_hint: None, None
+            size: 300, 400
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            elevation: 10
+            padding: 25
+            spacing: 25
+            orientation: 'vertical'
+
+            MDLabel:
+                id: welcome_label
+                text: "WELCOME"
+                font_size: 40
+                halign: 'center'
+                size_hint_y: None
+                height: self.texture_size[1]
+                padding_y: 15
+
+            MDTextFieldRound:
+                id: user
+                hint_text: "username"
+                icon_right: "account"
+                size_hint_x: None
+                width: 200
+                font_size: 18
+                pos_hint: {"center_x": 0.5}
+
+            MDTextFieldRound:
+                id: passw1
+                hint_text: "password"
+                icon_right: "eye-off"
+                size_hint_x: None
+                width: 200
+                font_size: 18
+                pos_hint: {"center_x": 0.5}
+                password: True
+
+            MDRoundFlatButton:
+                text: "LOG IN"
+                font_size: 12
+                pos_hint: {"center_x": 0.5}
+                on_release: 
+                    app.log()   
+                    root.manager.transition.direction = "left"
+
+            MDRoundFlatButton:
+                text: "Create Account"
+                font_size: 12
+                pos_hint: {"center_x": 0.5} 
+                on_release: 
+                    app.root.current = "create"   
+                    root.manager.transition.direction = "left"       
+
+            Widget:
+                size_hint_y: None
+                height: 10
+
+<CreateAcc>:
+    name: "create"
+    fname: fname
+    lname: lname
+    mno: mno
+    uname: uname
+    passw: passw
+    Screen:
+        MDCard:
+            size_hint: None, None
+            size: 300, 550
+            pos_hint: {"center_x": 0.5, "center_y": 0.5}
+            elevation: 10
+            padding: 25
+            spacing: 25
+            orientation: 'vertical'
+
+            MDLabel:
+                id: welcome_label
+                text: "WELCOME"
+                font_size: 40
+                halign: 'center'
+                size_hint_y: None
+                height: self.texture_size[1]
+                padding_y: 15
+                
+            MDTextFieldRound:
+                id: fname
+                hint_text: "first name"
+                icon_right: "account"
+                size_hint_x: None
+                width: 200
+                font_size: 18
+                pos_hint: {"center_x": 0.5}
+
+            MDTextFieldRound:
+                id: lname
+                hint_text: "last name"
+                icon_right: "account"
+                size_hint_x: None
+                width: 200
+                font_size: 18
+                pos_hint: {"center_x": 0.5}
+
+            MDTextFieldRound:
+                id: mno
+                hint_text: "mat no."
+                size_hint_x: None
+                width: 200
+                font_size: 18
+                pos_hint: {"center_x": 0.5}
+    
+            MDTextFieldRound:
+                id: uname
+                hint_text: "username"
+                icon_right: "account"
+                size_hint_x: None
+                width: 200
+                font_size: 18
+                pos_hint: {"center_x": 0.5}
+
+            MDTextFieldRound:
+                id: passw
+                hint_text: "password"
+                icon_right: "eye-off"
+                size_hint_x: None
+                width: 200
+                font_size: 18
+                pos_hint: {"center_x": 0.5}
+                password: True
+
+            MDRoundFlatButton:
+                text: "Create Account"
+                font_size: 12
+                pos_hint: {"center_x": 0.5}
+                on_release: 
+                    app.cre()
+                    app.root.current = "log"
+                    root.manager.transition.direction = "left"
+
+            MDRoundFlatButton:
+                text: "Already have an account? Sign IN"
+                font_size: 10
+                pos_hint: {"center_x": 0.5} 
+                on_release: 
+                    app.root.current = "log"
+                    root.manager.transition.direction = "right"
+
+<Com>:
+    name: "comt"
+    dmnt: dmnt
+    griev: griev
+    MDScreen:    
+        MDBoxLayout:
+            orientation: 'vertical'
+            padding: '48dp'
+            spacing: '15dp'
+
+            MDLabel:
+                id: com_label
+                text: ""
+                font_size: 30
+                halign: 'center'
+                size_hint_y: None
+                height: self.texture_size[1]
+                padding_y: 15
+
+            MDTextFieldRect:
+                id: dmnt
+                hint_text: "Department"
+                size_hint: 0.9, None
+                height: "30dp"
+
+            MDTextFieldRect:
+                id: griev
+                size_hint: 0.9, 0.6
+                hint_text: "Start typing here"
+                height: "50dp"
+        
+        MDIconButton:
+            icon: "keyboard-backspace"
+            icon_size: "5sp"
+            pos_hint: {"center_x": 0.05, "center_y": 0.95} 
+            on_release: 
+                app.root.current = "home"
+                root.manager.transition.direction = "right"
+
+        MDRaisedButton:
+            text: "Submit"
+            font_size: 10
+            pos_hint: {"center_x": 0.83, "center_y": 0.04} 
+            on_release: 
+                app.submit()
+                app.root.current = "home"
+                root.manager.transition.direction = "left"
+       
+
+<Home>:
+    name: "home"
+    # data: data
+    MDScreen:    
+        MDBoxLayout:
+            orientation: 'vertical'
+
+            MDToolbar:
+                title: "Welcome"
+                left_action_items:[["menu", lambda x: app.table()]]
+                right_action_items:[["dots-vertical", lambda x: x]]
+                # on_action_button: app.table()
+
+            BoxLayout:
+                id: layout
+
+            MDFloatingActionButton:
+                icon: "notebook-edit"
+                font_size: 20
+                pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+                on_release: 
+                    app.root.current = "comt"
+                    root.manager.transition.direction = "left"
+
+            MDIconButton:
+                icon: "keyboard-backspace"
+                icon_size: "5dp"
+                font_size: 20
+                pos_hint: {"center_x": 0.05, "center_y": 0.95} 
+                on_release: 
+                    app.root.current = "log"
+                    app.root.get_screen("log").ids.user.text = ""
+                    app.root.get_screen("log").ids.passw1.text = ""
+                    root.manager.transition.direction = "right"
+                    app.root.get_screen("log").ids.welcome_label.text = "Log In "
+
+
+<Ahome>:
+    name: "ahome"
+    MDScreen:    
+        MDBoxLayout:
+            orientation: 'vertical'
+
+            MDToolbar:
+                title: "Welcome"
+                left_action_items:[["menu", lambda x: app.atable()]]
+                right_action_items:[["dots-vertical", lambda x: x]]
+                # on_action_button: app.table()
+
+            MDLabel:
+                title: ""
+                halign: "center"
+
+            MDFloatingActionButton:
+                icon: "notebook-edit"
+                font_size: 20
+                pos_hint: {"center_x": 0.5, "center_y": 0.5} 
+
+            MDIconButton:
+                icon: "keyboard-backspace"
+                icon_size: "5dp"
+                font_size: 20
+                pos_hint: {"center_x": 0.05, "center_y": 0.95} 
+                on_release: 
+                    app.root.current = "log"
+                    app.root.get_screen("log").ids.user.text = ""
+                    app.root.get_screen("log").ids.passw1.text = ""
+                    root.manager.transition.direction = "right"
+                    app.root.get_screen("log").ids.welcome_label.text = "Log In "
+
+
+<Update>:
+    name: "update"
+    MDScreen:    
+        MDBoxLayout:
+            orientation: 'vertical'
+        MDTextFieldRect:
+            id: gdep
+            hint_text: "Department"
+            size_hint: 0.9, None
+            height: "30dp"
+
+        MDTextFieldRect:
+            id: dgriev
+            size_hint: 0.9, 0.6
+            hint_text: "Start typing here"
+            height: "50dp"
